@@ -80,13 +80,13 @@ const PerfumeCarousel = () => {
   useEffect(() => {
     const animate = () => {
       setPosition((prev) => {
-        const newPosition = prev - 0.5
+        const newPosition = prev - 2 // Aumentei a velocidade de 0.5 para 2
         const resetPoint = -(200 + 12) * perfumeImages.length // width + margin
         return newPosition <= resetPoint ? 0 : newPosition
       })
     }
 
-    const animationFrame = setInterval(animate, 16) // ~60fps
+    const animationFrame = setInterval(animate, 8) // Reduzido de 16 para 8ms (~120fps)
     return () => clearInterval(animationFrame)
   }, [])
 
@@ -97,10 +97,10 @@ const PerfumeCarousel = () => {
           className="flex transition-none"
           style={{
             transform: `translateX(${position}px)`,
-            width: `${(200 + 12) * perfumeImages.length * 2}px`, // Double for seamless loop
+            width: `${(200 + 12) * perfumeImages.length * 3}px`, // Triplicado para movimento mais suave
           }}
         >
-          {/* First set of images */}
+          {/* Primeira sequência de imagens */}
           {perfumeImages.map((src, index) => (
             <div key={`first-${index}`} className="flex-shrink-0 mr-3">
               <div className="w-[200px] h-[200px] md:w-[200px] md:h-[200px] sm:w-[150px] sm:h-[150px]">
@@ -114,13 +114,27 @@ const PerfumeCarousel = () => {
               </div>
             </div>
           ))}
-          {/* Duplicate set for seamless loop */}
+          {/* Segunda sequência para loop infinito */}
           {perfumeImages.map((src, index) => (
             <div key={`second-${index}`} className="flex-shrink-0 mr-3">
               <div className="w-[200px] h-[200px] md:w-[200px] md:h-[200px] sm:w-[150px] sm:h-[150px]">
                 <Image
                   src={src || "/placeholder.svg"}
                   alt={`${perfumeNames[index]} duplicate`}
+                  width={200}
+                  height={200}
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+            </div>
+          ))}
+          {/* Terceira sequência para movimento ainda mais suave */}
+          {perfumeImages.map((src, index) => (
+            <div key={`third-${index}`} className="flex-shrink-0 mr-3">
+              <div className="w-[200px] h-[200px] md:w-[200px] md:h-[200px] sm:w-[150px] sm:h-[150px]">
+                <Image
+                  src={src || "/placeholder.svg"}
+                  alt={`${perfumeNames[index]} triple`}
                   width={200}
                   height={200}
                   className="w-full h-full object-cover rounded-lg"
@@ -194,14 +208,15 @@ export default function PriceAnchoring({ correctAnswers }: PriceAnchoringProps) 
         </div>
       </div>
 
-      {/* Perfumes section - now integrated in the same block */}
+      {/* Perfume Carousel - aparece instantaneamente */}
+      <div className="border-t-2 border-blue-200 pt-6">
+        <h3 className="text-2xl font-bold text-blue-900 mb-6 text-center">perfumes that are still in stock:</h3>
+        <PerfumeCarousel />
+      </div>
+
+      {/* Bonus items section - aparece com delay */}
       {showBonusItems && (
-        <div className="border-t-2 border-blue-200 pt-6">
-          <h3 className="text-2xl font-bold text-blue-900 mb-6 text-center">perfumes that are still in stock:</h3>
-
-          {/* Perfume Carousel */}
-          <PerfumeCarousel />
-
+        <div className="pt-6">
           <div className="space-y-4">
             {bonusItems.map((item, index) => (
               <div

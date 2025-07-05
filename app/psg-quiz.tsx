@@ -11,6 +11,47 @@ import Image from "next/image"
 import PriceAnchoring from "@/components/price-anchoring"
 import PixelManager from "@/components/pixel-manager"
 
+// SVG Icons for audio control
+const VolumeOffIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+    />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"
+    />
+  </svg>
+)
+
+const VolumeOnIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+    />
+  </svg>
+)
+
 declare global {
   interface Window {
     fbq: any
@@ -362,7 +403,7 @@ export default function PSGQuiz() {
     return (
       <>
         <PixelManager />
-        <div className="min-h-screen bg-gradient-to-br from-orange-900 via-orange-800 to-red-600 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-gradient-to-br from-orange-900 via-orange-800 to-red-600 flex items-center justify-center">
           {/* Hidden audio element for preloading */}
           <audio
             id="notification-sound"
@@ -405,7 +446,11 @@ export default function PSGQuiz() {
                       } text-white shadow-2xl border-4 border-white pointer-events-auto transform transition-all duration-300 hover:scale-110`}
                       size="lg"
                     >
-                      <span className="text-2xl">{videoMuted ? "🔇" : "🔊"}</span>
+                      {videoMuted ? (
+                        <VolumeOffIcon className="w-6 h-6" />
+                      ) : (
+                        <VolumeOnIcon className="w-6 h-6" />
+                      )}
                     </Button>
                   </div>
                   
@@ -446,9 +491,6 @@ export default function PSGQuiz() {
                   We're liquidating a box of 3 premium perfumes inspired by luxury brands.
                   <br />
                   <br />💸 <strong>Complete the quiz for up to $100 OFF - Final price: $49.99</strong>
-                  <br />
-                  <br />
-                  Real luxury doesn't have to cost a fortune. Your timing is perfect."
                 </blockquote>
               </div>
 
@@ -514,7 +556,7 @@ export default function PSGQuiz() {
                   size="lg"
                   onClick={() => {
                     trackPurchaseIntent()
-                    window.open("https://www.temusales.shop/", "_blank")
+                    window.open("https://temusales.shop/", "_blank")
                   }}
                 >
                   <DollarSign className="mr-2 h-5 w-5" />
