@@ -80,13 +80,13 @@ const PerfumeCarousel = () => {
   useEffect(() => {
     const animate = () => {
       setPosition((prev) => {
-        const newPosition = prev - 0.5 // Reduzido de 1 para 0.5 para velocidade mais lenta
+        const newPosition = prev - 0.2 // Reduzido drasticamente de 0.5 para 0.2
         const resetPoint = -(200 + 12) * perfumeImages.length // width + margin
         return newPosition <= resetPoint ? 0 : newPosition
       })
     }
 
-    const animationFrame = setInterval(animate, 16) // Aumentado de 12 para 16ms (~60fps)
+    const animationFrame = setInterval(animate, 20) // Aumentado de 16 para 20ms (~50fps)
     return () => clearInterval(animationFrame)
   }, [])
 
