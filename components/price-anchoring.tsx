@@ -15,16 +15,16 @@ interface PriceItem {
 
 // Real perfume images
 const perfumeImages = [
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/4-jxKK2YQECnReLbOx0sufzha02lOJeH.png", // J'adore Dior
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/5-rvGz5Kl2Ndc0Cc841BUHhW89w3YpIF.png", // Chanel No. 5
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1-uPBPXxRA0qJaUlzt6SESND5ynYpxls.png", // Miss Dior
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2-ZDzmaNN4HDBnxDvQHXAYPj48FHbm2n.png", // YSL Libre
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3-zBoC2xMzLPj3Pf6p7e3VPpmGeNgEqg.png", // Lancôme La vie est belle
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/7-mvbj8PdaMwQAAUHFYSuH1N22XQCdwv.png", // Jean Paul Gaultier Le Male
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/10-XiVHgxJyL89tkSDzAD56lvISHBxukm.png", // Gentleman Givenchy
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/9-br81fJbMGqvE0d8JufAxu1zk6U0CNK.png", // Bleu de Chanel
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/6-yBeq3F4Ev6dKI0YTftSc0vauqDw2sX.png", // 1 Million Paco Rabanne
-  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/8-dOKb1p29LvMHgOjSiACItkrrPblFCY.png", // Invictus Rabanne
+  "/1.png", // J'adore Dior
+  "/2.png", // Chanel No. 5
+  "/3.png", // Miss Dior
+  "/4.png", // YSL Libre
+  "/5.png", // Lancôme La vie est belle
+  "/6.png", // Jean Paul Gaultier Le Male
+  "/7.png", // Gentleman Givenchy
+  "/8.png", // Bleu de Chanel
+  "/9.png", // 1 Million Paco Rabanne
+  "/10.png", // Invictus Rabanne
 ]
 
 // Perfume names for alt text
@@ -41,6 +41,38 @@ const perfumeNames = [
   "Invictus by Rabanne",
 ]
 
+// Bonus items array
+const bonusItems: PriceItem[] = [
+  {
+    id: 1,
+    text: "3 Premium Perfumes (50ml each)",
+    originalValue: "$149.99",
+    currentValue: "FREE",
+    emoji: "🎁",
+  },
+  {
+    id: 2,
+    text: "temu box",
+    originalValue: "$89.99",
+    currentValue: "FREE",
+    emoji: "🏀",
+  },
+  {
+    id: 3,
+    text: "Express Shipping",
+    originalValue: "$19.99",
+    currentValue: "FREE",
+    emoji: "🚚",
+  },
+  {
+    id: 4,
+    text: "Satisfaction Guarantee",
+    originalValue: "$29.99",
+    currentValue: "FREE",
+    emoji: "✅",
+  },
+]
+
 // Carousel Component
 const PerfumeCarousel = () => {
   const [position, setPosition] = useState(0)
@@ -49,7 +81,7 @@ const PerfumeCarousel = () => {
     const animate = () => {
       setPosition((prev) => {
         const newPosition = prev - 0.5
-        const resetPoint = -(270 + 12) * perfumeImages.length // width + margin
+        const resetPoint = -(200 + 12) * perfumeImages.length // width + margin
         return newPosition <= resetPoint ? 0 : newPosition
       })
     }
@@ -65,18 +97,18 @@ const PerfumeCarousel = () => {
           className="flex transition-none"
           style={{
             transform: `translateX(${position}px)`,
-            width: `${(270 + 12) * perfumeImages.length * 2}px`, // Double for seamless loop
+            width: `${(200 + 12) * perfumeImages.length * 2}px`, // Double for seamless loop
           }}
         >
           {/* First set of images */}
           {perfumeImages.map((src, index) => (
             <div key={`first-${index}`} className="flex-shrink-0 mr-3">
-              <div className="w-[1080px] h-[650px] md:w-[1080px] md:h-[650px] sm:w-[36-px] sm:h-[216px]">
+              <div className="w-[200px] h-[200px] md:w-[200px] md:h-[200px] sm:w-[150px] sm:h-[150px]">
                 <Image
                   src={src || "/placeholder.svg"}
                   alt={perfumeNames[index]}
-                  width={360}
-                  height={216}
+                  width={200}
+                  height={200}
                   className="w-full h-full object-cover rounded-lg"
                 />
               </div>
@@ -85,12 +117,12 @@ const PerfumeCarousel = () => {
           {/* Duplicate set for seamless loop */}
           {perfumeImages.map((src, index) => (
             <div key={`second-${index}`} className="flex-shrink-0 mr-3">
-              <div className="w-[1080px] h-[650px] md:w-[1080px] md:h-[650px] sm:w-[36-px] sm:h-[216px]">
+              <div className="w-[200px] h-[200px] md:w-[200px] md:h-[200px] sm:w-[150px] sm:h-[150px]">
                 <Image
                   src={src || "/placeholder.svg"}
                   alt={`${perfumeNames[index]} duplicate`}
-                  width={360}
-                  height={216}
+                  width={200}
+                  height={200}
                   className="w-full h-full object-cover rounded-lg"
                 />
               </div>
@@ -138,8 +170,8 @@ export default function PriceAnchoring({ correctAnswers }: PriceAnchoringProps) 
       <div className="flex items-center justify-between mb-4">
         <div className="w-20 h-20 rounded-lg overflow-hidden border-2 border-blue-200">
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/frente%20e%20verso-sUTCLMCHhzEVPG9AcAP3dWBtEOD5np.png"
-            alt="Thunder Jersey Front and Back"
+            src="box_temu.png"
+            alt="temu box"
             width={80}
             height={80}
             className="w-full h-full object-cover"
@@ -185,8 +217,8 @@ export default function PriceAnchoring({ correctAnswers }: PriceAnchoringProps) 
                   {item.id === 2 ? (
                     <div className="w-8 h-8 rounded overflow-hidden">
                       <Image
-                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/alexander.jpg-I0Ev7PVvxp63Ho3GNDl9AlIfSirESs.jpeg"
-                        alt="Thunder Jersey"
+                        src="box_temu.png"
+                        alt="box_temu"
                         width={32}
                         height={32}
                         className="w-full h-full object-cover"
@@ -199,7 +231,7 @@ export default function PriceAnchoring({ correctAnswers }: PriceAnchoringProps) 
                 </div>
                 <div className="text-right">
                   <span className="font-bold text-gray-400 line-through text-sm">{item.originalValue}</span>
-                  <span className="font-bold text-green-600 text-lg ml-2">{item.currentValue}</span>
+                  <span className="font-bold text-green-600 text-lg ml-2"><br></br>{item.currentValue}</span>
                 </div>
               </div>
             ))}
