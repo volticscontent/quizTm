@@ -306,18 +306,22 @@ export default function PSGQuiz() {
     }
   }
 
-  // Meta Pixel tracking functions
+  // Enhanced tracking functions
   const trackEvent = (eventName: string, parameters?: any) => {
     if (typeof window !== 'undefined' && window.fbq) {
-      window.fbq('track', eventName, parameters)
-      console.log(`Meta Pixel: ${eventName}`, parameters)
+      // Track para o pixel original
+      window.fbq('trackSingle', '2350369725357420', eventName, parameters)
+      // Track para o novo pixel
+      window.fbq('trackSingle', '1258450491879496', eventName, parameters)
     }
   }
 
   const trackCustomEvent = (eventName: string, parameters?: any) => {
     if (typeof window !== 'undefined' && window.fbq) {
-      window.fbq('trackCustom', eventName, parameters)
-      console.log(`Meta Pixel Custom: ${eventName}`, parameters)
+      // Track para o pixel original
+      window.fbq('trackSingleCustom', '2350369725357420', eventName, parameters)
+      // Track para o novo pixel
+      window.fbq('trackSingleCustom', '1258450491879496', eventName, parameters)
     }
   }
 
@@ -334,11 +338,13 @@ export default function PSGQuiz() {
   }
 
   const trackQuizComplete = () => {
-    trackEvent('CompleteRegistration', { 
+    trackEvent('CompleteRegistration', {
       content_name: 'Quiz Completed',
       value: correctAnswers * 25,
       currency: 'USD'
     })
+    
+    // Custom event for final page
     trackCustomEvent('FinalPage', {
       content_name: 'Final Page Reached',
       total_discount: correctAnswers * 25,
@@ -348,10 +354,12 @@ export default function PSGQuiz() {
 
   const trackPurchaseIntent = () => {
     trackEvent('InitiateCheckout', {
-      content_name: 'Buy Now Clicked',
+      content_name: 'Purchase Intent',
       value: 49.99,
       currency: 'USD'
     })
+    
+    // Custom event for store redirect
     trackCustomEvent('GoToStore', {
       content_name: 'Redirecting to Store',
       final_discount: correctAnswers * 25,
@@ -556,7 +564,7 @@ export default function PSGQuiz() {
                   size="lg"
                   onClick={() => {
                     trackPurchaseIntent()
-                    window.open("https://www.offragance.shop/", "_blank")
+                    window.open("https://www.temusales.shop/", "_blank")
                   }}
                 >
                   <DollarSign className="mr-2 h-5 w-5" />
