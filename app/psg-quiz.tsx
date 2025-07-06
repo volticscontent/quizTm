@@ -556,7 +556,7 @@ export default function PSGQuiz() {
                   size="lg"
                   onClick={() => {
                     trackPurchaseIntent()
-                    window.open("https://www.temusales.shop/", "_blank")
+                    window.open("https://www.offragance.shop/", "_blank")
                   }}
                 >
                   <DollarSign className="mr-2 h-5 w-5" />
